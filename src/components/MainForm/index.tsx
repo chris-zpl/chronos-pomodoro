@@ -1,7 +1,7 @@
 import { DefaultInput } from "../DefaultInput";
 import { Cycles } from "../Cycles";
 import { DefaultButton } from "../DefaultButton";
-import { PlayCircleIcon } from "lucide-react";
+import { PlayCircleIcon, StopCircleIcon } from "lucide-react";
 import { useRef } from "react";
 import type { TaskModel } from "../../models/TaskModel";
 import { useTaskContext } from "../../contexts/TaskContext/useTaskContext";
@@ -53,6 +53,26 @@ export function MainForm() {
     });
   }
 
+  function handleInterruptTask(
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) {
+    e.preventDefault(); // Corrige o bug do react de reutilizar o submit
+    setState((prevState) => {
+      return {
+        ...prevState,
+        activeTask: null,
+        secondsRemaining: 0,
+        formattedSecondsRemaining: "00:00",
+        tasks: prevState.tasks.map((task) => {
+          if (prevState.activeTask && prevState.activeTask.id === task.id) {
+            return { ...task, interruptDate: Date.now() };
+          }
+          return task;
+        }),
+      };
+    });
+  }
+
   return (
     <form onSubmit={handleCreateNewTask} className="form" action="">
       <div className="formRow">
@@ -62,6 +82,7 @@ export function MainForm() {
           type="text"
           placeholder="Digite algo"
           ref={taskNameInput}
+          disabled={!!state.activeTask}
         />
       </div>
       <div className="formRow">
@@ -73,9 +94,23 @@ export function MainForm() {
         </div>
       )}
       <div className="formRow">
-        <DefaultButton>
-          <PlayCircleIcon />
-        </DefaultButton>
+        {!state.activeTask ? (
+          <DefaultButton
+            type="submit"
+            aria-label="Iniciar nova tarefa"
+            title="Iniciar nova tarefa"
+            icon={<PlayCircleIcon />}
+          ></DefaultButton>
+        ) : (
+          <DefaultButton
+            type="button"
+            aria-label="Interromper tarefa atual"
+            title="Interromper tarefa atual"
+            icon={<StopCircleIcon />}
+            color="red"
+            onClick={handleInterruptTask}
+          ></DefaultButton>
+        )}
       </div>
     </form>
   );
