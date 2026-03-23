@@ -25,14 +25,6 @@ export function Menu() {
     });
   }
 
-  /* useEffect(() => {
-    console.log('useEffect sem dependência');
-  }) */ // Executado toda vez que o componenete renderiza na tela
-
-  /* useEffect(() => {
-    console.log('useEffect com array deps vazio');
-  }, []) */ // Executa apenas quando o react monta o componenete na tela pela primeira vez
-
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
     localStorage.setItem("theme", theme);
@@ -60,7 +52,7 @@ export function Menu() {
         href="#"
         className={styles.menuLink}
         aria-label="Configurações"
-        title="IConfigurações"
+        title="Configurações"
       >
         <SettingsIcon />
       </a>

@@ -7,8 +7,8 @@ import type { TaskModel } from "../../models/TaskModel";
 import { useTaskContext } from "../../contexts/TaskContext/useTaskContext";
 import { getNextCycle } from "../../utils/getNextCycle";
 import { getNextCycleType } from "../../utils/getNextCycleType";
-import { formatSecondsToMinutes } from "../../utils/formatSecondsToMinutes";
-import { TaskActionTypes } from "../../contexts/TaskContext/TaskActions";
+import { TaskActionTypes } from "../../contexts/TaskContext/TaskActionModel";
+import { Tips } from "../Tips";
 
 export function MainForm() {
   const { state, dispatch } = useTaskContext();
@@ -40,14 +40,15 @@ export function MainForm() {
       type: nextCycleType,
     };
 
-    dispatch({type: TaskActionTypes.START_TASK, payload: newTask})
+    dispatch({ type: TaskActionTypes.START_TASK, payload: newTask });
   }
 
   function handleInterruptTask(
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) {
     e.preventDefault(); // Corrige o bug do react de reutilizar o submit
-    dispatch({type: TaskActionTypes.INTERRUPT_TASK})
+
+    dispatch({ type: TaskActionTypes.INTERRUPT_TASK });
   }
 
   return (
@@ -62,14 +63,15 @@ export function MainForm() {
           disabled={!!state.activeTask}
         />
       </div>
-      <div className="formRow">
-        <p>Lorem ipsum dolor sit amet.</p>
-      </div>
+
+      <Tips state={state} nextCycleType={nextCycleType} />
+
       {state.currentCycle > 0 && (
         <div className="formRow">
           <Cycles />
         </div>
       )}
+      
       <div className="formRow">
         {!state.activeTask ? (
           <DefaultButton
