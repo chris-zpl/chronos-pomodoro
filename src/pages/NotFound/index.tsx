@@ -1,6 +1,7 @@
 import { Container } from "../../components/Container";
 import { GenericHtml } from "../../components/GenericHtml";
 import { Heading } from "../../components/Heading";
+import { RouterLink } from "../../components/RouterLink";
 import { MainTemplate } from "../../templates/MainTemplate";
 
 export function NotFound() {
@@ -32,7 +33,7 @@ export function NotFound() {
           </p>
 
           <p>
-            🏠 <a href="/">Voltar para a página inicial</a>
+            🏠 <RouterLink href="/">Voltar para a página inicial</RouterLink>
           </p>
         </GenericHtml>
       </Container>
