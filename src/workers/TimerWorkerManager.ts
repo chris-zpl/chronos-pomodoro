@@ -26,4 +26,8 @@ export class TimerWorkerManager {
     this.worker.terminate();
     instance = null;
   }
+
+  clearMessageListener() {
+    this.worker.onmessage = null;
+  }
 }
