@@ -9,6 +9,7 @@ import { getNextCycle } from "../../utils/getNextCycle";
 import { getNextCycleType } from "../../utils/getNextCycleType";
 import { TaskActionTypes } from "../../contexts/TaskContext/TaskActionModel";
 import { Tips } from "../Tips";
+import { showMessage } from "../../adapters/showMessage";
 
 export function MainForm() {
   const { state, dispatch } = useTaskContext();
@@ -20,13 +21,14 @@ export function MainForm() {
 
   function handleCreateNewTask(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    showMessage.dismiss()
 
     if (taskNameInput.current === null) return;
 
     const taskName = taskNameInput.current.value.trim();
 
     if (!taskName) {
-      alert("Digite o nome de uma tarefa");
+      showMessage.warning("Informe o nome de uma tarefa.");
       return;
     }
 
@@ -39,7 +41,7 @@ export function MainForm() {
       duration: state.config[nextCycleType],
       type: nextCycleType,
     };
-
+    showMessage.success('Tarefa iniciada.')
     dispatch({ type: TaskActionTypes.START_TASK, payload: newTask });
   }
 
@@ -47,6 +49,8 @@ export function MainForm() {
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) {
     e.preventDefault(); // Corrige o bug do react de reutilizar o submit
+    showMessage.dismiss();
+    showMessage.error('Tarefa interrompida.')
 
     dispatch({ type: TaskActionTypes.INTERRUPT_TASK });
   }
@@ -55,7 +59,7 @@ export function MainForm() {
     <form onSubmit={handleCreateNewTask} className="form" action="">
       <div className="formRow">
         <DefaultInput
-          labelText="task"
+          labelText="Tarefa"
           id="meuInput"
           type="text"
           placeholder="Digite algo"

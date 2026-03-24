@@ -5,6 +5,7 @@ import { taskReducer } from "./taskReducer";
 import { TimerWorkerManager } from "../../workers/TimerWorkerManager";
 import { TaskActionTypes } from "./TaskActionModel";
 import { loadBeep } from "../../utils/loadBeep";
+import { showMessage } from "../../adapters/showMessage";
 
 type TaskContextProviderProps = {
   children: React.ReactNode;
@@ -14,7 +15,7 @@ export function TaskContextProvider({ children }: TaskContextProviderProps) {
   const [state, dispatch] = useReducer(taskReducer, initialTaskState);
   const playBeepRef = useRef<() => void | null>(null);
   const worker = TimerWorkerManager.getInstance();
-
+  
   useEffect(() => {
     worker.onmessage((e) => {
       const countDownSeconds = e.data;
@@ -24,6 +25,8 @@ export function TaskContextProvider({ children }: TaskContextProviderProps) {
           playBeepRef.current();
           playBeepRef.current = null;
         }
+        // Mostra a mensagem ao concluir a tarefa
+        showMessage.success('Tarefa concluída.');
         dispatch({
           type: TaskActionTypes.COMPLETE_TASK,
         });
