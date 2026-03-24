@@ -6,16 +6,29 @@ import { TimerWorkerManager } from "../../workers/TimerWorkerManager";
 import { TaskActionTypes } from "./TaskActionModel";
 import { loadBeep } from "../../utils/loadBeep";
 import { showMessage } from "../../adapters/showMessage";
+import type { TaskStateModel } from "../../models/TaskStateModel";
 
 type TaskContextProviderProps = {
   children: React.ReactNode;
 };
 
 export function TaskContextProvider({ children }: TaskContextProviderProps) {
-  const [state, dispatch] = useReducer(taskReducer, initialTaskState);
+  const [state, dispatch] = useReducer(taskReducer, initialTaskState, () => {
+    const storageState = localStorage.getItem("state");
+    if (!storageState) return initialTaskState;
+
+    const parsedStorageState = JSON.parse(storageState) as TaskStateModel;
+
+    return {
+      ...parsedStorageState,
+      activeTask: null,
+      secondsRemaining: 0,
+      formattedSecondsRemaining: "00:00",
+    };
+  });
   const playBeepRef = useRef<() => void | null>(null);
   const worker = TimerWorkerManager.getInstance();
-  
+
   useEffect(() => {
     worker.onmessage((e) => {
       const countDownSeconds = e.data;
@@ -26,7 +39,7 @@ export function TaskContextProvider({ children }: TaskContextProviderProps) {
           playBeepRef.current = null;
         }
         // Mostra a mensagem ao concluir a tarefa
-        showMessage.success('Tarefa concluída.');
+        showMessage.success("Tarefa concluída.");
         dispatch({
           type: TaskActionTypes.COMPLETE_TASK,
         });
@@ -40,20 +53,28 @@ export function TaskContextProvider({ children }: TaskContextProviderProps) {
     });
     return () => {
       worker.clearMessageListener();
-    }
+    };
   }, [dispatch, worker]);
 
   useEffect(() => {
+    localStorage.setItem("state", JSON.stringify(state));
+
     if (!state.activeTask) {
       worker.terminate();
     }
+    if (state.activeTask) {
+      document.title = `${state.formattedSecondsRemaining} - Chronos Pomodoro`;
+    } else {
+      document.title = `Chronos Pomodoro`;
+    }
+
     worker.postMessage(state);
   }, [worker, state]);
 
   useEffect(() => {
     if (state.activeTask && playBeepRef.current === null) {
       playBeepRef.current = loadBeep();
-    } else{
+    } else {
       playBeepRef.current = null;
     }
   }, [state.activeTask]);
