@@ -28,3 +28,20 @@ body {
   justify-content: center;
   gap: 2.4rem;
 }
+
+/* 🛠️ Correção do botão de fechar do Toastify */
+.Toastify__close-button--light {
+  color: var(--toastify-text-color-light) !important;
+  opacity: 0.7; /* Opcional: deixa o ícone um pouco opaco para não gritar muito, padrão do Toastify é 0.3 */
+}
+
+.Toastify__close-button--dark {
+  color: var(--toastify-text-color-dark) !important;
+  opacity: 0.7;
+}
+
+/* Efeito hover para o botão de fechar */
+.Toastify__close-button--light:hover,
+.Toastify__close-button--dark:hover {
+  opacity: 1;
+}

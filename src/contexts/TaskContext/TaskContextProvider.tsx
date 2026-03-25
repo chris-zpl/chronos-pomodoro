@@ -26,6 +26,7 @@ export function TaskContextProvider({ children }: TaskContextProviderProps) {
       formattedSecondsRemaining: "00:00",
     };
   });
+  
   const playBeepRef = useRef<() => void | null>(null);
   const worker = TimerWorkerManager.getInstance();
 
@@ -38,11 +39,17 @@ export function TaskContextProvider({ children }: TaskContextProviderProps) {
           playBeepRef.current();
           playBeepRef.current = null;
         }
+
+        // Apaga as mensagens anteriores
+        showMessage.dismiss();
+
         // Mostra a mensagem ao concluir a tarefa
         showMessage.success("Tarefa concluída.");
+
         dispatch({
           type: TaskActionTypes.COMPLETE_TASK,
         });
+
         worker.terminate();
       } else {
         dispatch({
@@ -59,13 +66,11 @@ export function TaskContextProvider({ children }: TaskContextProviderProps) {
   useEffect(() => {
     localStorage.setItem("state", JSON.stringify(state));
 
-    if (!state.activeTask) {
-      worker.terminate();
-    }
     if (state.activeTask) {
       document.title = `${state.formattedSecondsRemaining} - Chronos Pomodoro`;
     } else {
-      document.title = `Chronos Pomodoro`;
+      document.title = "Chronos Pomodoro";
+      worker.terminate();
     }
 
     worker.postMessage(state);
