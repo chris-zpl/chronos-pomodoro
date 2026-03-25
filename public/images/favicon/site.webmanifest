@@ -22,7 +22,7 @@
     }
   ],
   "theme_color": "#0da170",
-  "background_color": "#0a0f1a",
+  "background_color": "#ffffff",
   "display": "standalone",
   "display_override": ["window-controls-overlay", "minimal-ui"],
   "orientation": "portrait",
