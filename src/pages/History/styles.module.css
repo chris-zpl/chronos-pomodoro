@@ -33,16 +33,35 @@
   background-color: var(--gray-800);
 }
 
+.responsiveTable span{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.4rem;
+}
+
 .responsiveTable th,
-.responsiveTable td {
+.responsiveTable td,
+.responsiveTableWithoutContent th,
+.responsiveTableWithoutContent td  {
   border-bottom: 0.2rem solid var(--gray-700);
   text-align: left;
   padding: 1.6rem;
 }
 
-.responsiveTableWithoutContent th,
+
 .responsiveTableWithoutContent td {
-  border-bottom: 0.2rem solid var(--gray-700);
   text-align: center;
-  padding: 1.6rem;
+}
+
+.thSort{
+  cursor: pointer;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none;     /* IE 10+ e Edge */
+  user-select: none;         /* Padrão moderno (Chrome, Firefox, Opera, Edge) */
+  transition: all 0.1s ease-in-out;
+}
+
+.thSort:hover{
+  filter: brightness(80%);
 }

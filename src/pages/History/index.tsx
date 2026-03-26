@@ -1,5 +1,5 @@
 import styles from "./styles.module.css";
-import { TrashIcon } from "lucide-react";
+import { ArrowUpDownIcon, Trash2Icon } from "lucide-react";
 import { Container } from "../../components/Container";
 import { DefaultButton } from "../../components/DefaultButton";
 import { Heading } from "../../components/Heading";
@@ -8,39 +8,117 @@ import { useTaskContext } from "../../contexts/TaskContext/useTaskContext";
 import { formatDate } from "../../utils/formatDate";
 import { getTaskStatus } from "../../utils/getTaskStatus";
 import { getTaskType } from "../../utils/getTaskType";
+import { sortTasks, type SortTaskOptions } from "../../utils/sortTasks";
+import { useEffect, useState } from "react";
+import { showMessage } from "../../adapters/showMessage";
+import { TaskActionTypes } from "../../contexts/TaskContext/TaskActionModel";
 
 export function History() {
-  const { state } = useTaskContext();
+  const { state, dispatch } = useTaskContext();
+  const [sortTasksOptions, setSortTasksOptions] = useState<SortTaskOptions>(
+    () => {
+      return {
+        tasks: sortTasks({ tasks: state.tasks }),
+        field: "startDate",
+        direction: "desc",
+      };
+    },
+  );
+  const hasTasks = state.tasks && state.tasks.length > 0;
+  const [confirmClearHistory, setConfirmClearHistory] = useState(false);
+
+  useEffect(() => {
+    if(!confirmClearHistory) return;
+
+    console.log(confirmClearHistory)
+    /* dispatch({type: TaskActionTypes.RESET_STATE}); */
+  }, [confirmClearHistory, dispatch])
+
+  function handleSortTasks({ field }: Pick<SortTaskOptions, "field">) {
+    const newDirection = sortTasksOptions.direction === "desc" ? "asc" : "desc";
+    setSortTasksOptions({
+      tasks: sortTasks({ direction: newDirection, tasks: state.tasks, field }),
+      direction: newDirection,
+      field,
+    });
+  }
+
+  function handleResetHistory() {
+    showMessage.dismiss();
+    showMessage.action('teste', 'teste', (confirmation) =>{
+      setConfirmClearHistory(confirmation);
+
+          /* dispatch({ type: TaskActionTypes.RESET_STATE }) */;
+    })
+    /* 'Apagar histórico',
+    'Tem certeza que deseja apagar?', */
+    // Esta é a função onConfirm que será disparada ao clicar no botão
+    
+      /* dispatch({ type: TaskActionTypes.RESET_STATE }); */
+      // Se quiser mostrar um sucesso depois:
+      // showMessage.success('Histórico limpo!');
+    
+  }
+
   return (
     <MainTemplate>
       <Container>
         <Heading>
           <span>Histórico</span>
-          <span className={styles.buttonContainer}>
-            <DefaultButton
-              icon={<TrashIcon />}
-              color="red"
-              aria-label="Apagar todo o histórico"
-              title="Apagar histórico"
-            />
-          </span>
+          {hasTasks && (
+            <span className={styles.buttonContainer}>
+              <DefaultButton
+                icon={<Trash2Icon />}
+                color="red"
+                aria-label="Apagar todo o histórico"
+                title="Apagar histórico"
+                onClick={handleResetHistory}
+              />
+            </span>
+          )}
         </Heading>
       </Container>
       <Container>
-        {state.tasks && state.tasks.length > 0 ? (
+        {hasTasks ? (
           <div className={styles.responsiveTable}>
             <table>
               <thead>
                 <tr>
-                  <th>Tarefa</th>
-                  <th>Duração</th>
-                  <th>Data</th>
-                  <th>Status</th>
-                  <th>Tipo</th>
+                  <th
+                    onClick={() => handleSortTasks({ field: "name" })}
+                    className={styles.thSort}
+                  >
+                    <span>
+                      Tarefa <ArrowUpDownIcon width={16} strokeWidth={2} />{" "}
+                    </span>
+                  </th>
+                  <th
+                    onClick={() => handleSortTasks({ field: "duration" })}
+                    className={styles.thSort}
+                  >
+                    <span>
+                      Duração{" "}
+                      <ArrowUpDownIcon width={16} strokeWidth={2} />{" "}
+                    </span>
+                  </th>
+                  <th
+                    onClick={() => handleSortTasks({ field: "startDate" })}
+                    className={styles.thSort}
+                  >
+                    <span>
+                      Data <ArrowUpDownIcon width={16} strokeWidth={2} />{" "}
+                    </span>
+                  </th>
+                  <th>
+                    <span>Status</span>
+                  </th>
+                  <th>
+                    <span>Tipo</span>
+                  </th>
                 </tr>
               </thead>
               <tbody>
-                {state.tasks.map((task) => (
+                {sortTasksOptions.tasks.map((task) => (
                   <tr key={task.id}>
                     <td>{task.name}</td>
                     <td>{task.duration}</td>
