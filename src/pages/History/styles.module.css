@@ -9,23 +9,27 @@
   height: 2rem;
 }
 
-.responsiveTable {
+.responsiveTable,
+.responsiveTableWithoutContent {
   overflow-x: auto;
   border-radius: 0.8rem;
 }
 
-.responsiveTable table {
+.responsiveTable table,
+.responsiveTableWithoutContent table {
   width: 100%;
   min-width: 64rem;
   font-size: 1.6rem;
   border-collapse: collapse;
 }
 
-.responsiveTable th {
+.responsiveTable th,
+.responsiveTableWithoutContent th {
   background-color: var(--gray-600);
 }
 
-.responsiveTable td {
+.responsiveTable td,
+.responsiveTableWithoutContent td {
   background-color: var(--gray-800);
 }
 
@@ -36,6 +40,9 @@
   padding: 1.6rem;
 }
 
-.responsiveTableWithoutContent th, .responsiveTableWithoutContent td{
+.responsiveTableWithoutContent th,
+.responsiveTableWithoutContent td {
+  border-bottom: 0.2rem solid var(--gray-700);
   text-align: center;
+  padding: 1.6rem;
 }
