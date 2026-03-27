@@ -13,10 +13,10 @@ export function MessagesContainer({ children }: MessagesContainerProps) {
         autoClose={10000}
         hideProgressBar={false}
         newestOnTop={false}
-        closeOnClick={true}
+        closeOnClick={false}
         rtl={false}
         pauseOnFocusLoss
-        draggable
+        draggable={false}
         pauseOnHover
         theme="light"
         transition={Bounce}

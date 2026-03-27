@@ -75,6 +75,10 @@
   --toastify-text-color-dark: #e6e9f0;
   --toastify-color-progress-light: var(--primary);
   --toastify-color-progress-dark: var(--primary);
+
+  /* BG */
+  --button-bg: var(--gray-200);
+  --button-bg-hover: var(--gray-100);
 }
 
 /* 🌞 Modo Claro - Inverte algumas cores para manter o contraste */
@@ -101,4 +105,8 @@
   /* 🔔 Toastify no modo claro */
   --toastify-text-color-light: #e6e9f0;
   --toastify-text-color-dark: #e6e9f0;
+
+  /* BG */
+  --button-bg: var(--gray-800);
+  --button-bg-hover: var(--gray-900);
 }

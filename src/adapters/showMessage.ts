@@ -16,15 +16,12 @@ export const showMessage = {
       data: {
         title: title,
         content: content,
+        onClosing
       },
-      ariaLabel: "Message archived",
-      className: "w-[400px]",
+      ariaLabel: title,
       autoClose: false,
       closeButton: false,
-      onClose: (confirmation) => {
-        if (confirmation) return onClosing(true);
-        return onClosing(false);
-      },
+      draggable: false,
     }),
   dismiss: () => toast.dismiss(),
 };

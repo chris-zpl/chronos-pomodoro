@@ -9,7 +9,7 @@ import { formatDate } from "../../utils/formatDate";
 import { getTaskStatus } from "../../utils/getTaskStatus";
 import { getTaskType } from "../../utils/getTaskType";
 import { sortTasks, type SortTaskOptions } from "../../utils/sortTasks";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { showMessage } from "../../adapters/showMessage";
 import { TaskActionTypes } from "../../contexts/TaskContext/TaskActionModel";
 
@@ -25,14 +25,6 @@ export function History() {
     },
   );
   const hasTasks = state.tasks && state.tasks.length > 0;
-  const [confirmClearHistory, setConfirmClearHistory] = useState(false);
-
-  useEffect(() => {
-    if(!confirmClearHistory) return;
-
-    console.log(confirmClearHistory)
-    /* dispatch({type: TaskActionTypes.RESET_STATE}); */
-  }, [confirmClearHistory, dispatch])
 
   function handleSortTasks({ field }: Pick<SortTaskOptions, "field">) {
     const newDirection = sortTasksOptions.direction === "desc" ? "asc" : "desc";
@@ -45,19 +37,12 @@ export function History() {
 
   function handleResetHistory() {
     showMessage.dismiss();
-    showMessage.action('teste', 'teste', (confirmation) =>{
-      setConfirmClearHistory(confirmation);
-
-          /* dispatch({ type: TaskActionTypes.RESET_STATE }) */;
-    })
-    /* 'Apagar histórico',
-    'Tem certeza que deseja apagar?', */
-    // Esta é a função onConfirm que será disparada ao clicar no botão
-    
-      /* dispatch({ type: TaskActionTypes.RESET_STATE }); */
-      // Se quiser mostrar um sucesso depois:
-      // showMessage.success('Histórico limpo!');
-    
+    showMessage.action("Apagar histórico", "Tem certeza que deseja apagar tudo?", (confirm) => {
+      if (confirm) {
+        dispatch({ type: TaskActionTypes.RESET_STATE });
+        showMessage.success("Histórico apagado com sucesso.");
+      }
+    });
   }
 
   return (
