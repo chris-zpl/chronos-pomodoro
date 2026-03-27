@@ -1,73 +1,63 @@
-# React + TypeScript + Vite
+# Chronos Pomodoro ⏱️🍅
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+O **Chronos** é uma aplicação web focada em produtividade baseada na técnica Pomodoro. Desenvolvido para ajudar usuários a gerenciarem seu tempo de forma eficiente, alternando entre períodos de foco intenso e pausas restauradoras.  
+Este projeto faz parte das aulas lecionadas pelo professor Luiz Otávio Miranda, do curso da Udemy, com algumas adaptações realizadas por mim.
 
-Currently, two official plugins are available:
+---
+# Índice
+- [Tecnologias Utilizadas](#tecnologias-utilizadas)
+- [Funcionalidades](#funcionalidades)
+- [Como executar o projeto localmente](#como-executar-o-projeto-localmente)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
+## Tecnologias Utilizadas
 
-## React Compiler
+Este projeto foi construído utilizando as seguintes ferramentas:
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+* **React:** Biblioteca JavaScript para construção da interface de usuário.
+* **Vite:** Ferramenta de build extremamente rápida para o desenvolvimento.
+* **TypeScript:** Adicionando tipagem estática para um código mais seguro e escalável.
+* **React Router:** Gerenciamento de rotas e navegação (incluindo página 404 personalizada).
+* **useReducer / Context API:** Para o gerenciamento de estado complexo dos ciclos do timer e tarefas.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Funcionalidades
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+* Temporizador Pomodoro clássico (Tempo de Foco, Pausa Curta, Pausa Longa).
+* Configurações de tempo totalmente personalizáveis pelo usuário.
+* Validação de formulários para garantir intervalos de tempo corretos.
+* Gerenciamento de estado de tarefas (Iniciar, Interromper, Concluir).
+* Visualização do histórico das tarefas realizadas, com possibilidade de exclusão.
+* Interface limpa, responsiva e amigável.
+* Página 404 criativa com navegação de resgate.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Como executar o projeto localmente
+
+Siga os passos abaixo para rodar o projeto na sua máquina:
+
+**1. Clone o repositório**
+```bash
+git clone https://github.com/chris-zpl/chronos-pomodoro
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+**2. Acesse a pasta do projeto**
+```bash
+cd chronos-pomodoro
 ```
+
+**3. Instale as dependências**
+```bash
+npm install
+```
+
+**4. Inicie o servidor de desenvolvimento**
+```bash
+npm run dev
+```
+
+**5. Acesse no navegador**  
+O Vite geralmente inicia o servidor na porta `5173`.   
+Acesse [**http://localhost:5173**](http://localhost:5173) para ver a aplicação rodando.
