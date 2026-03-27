@@ -76,7 +76,7 @@
   --toastify-color-progress-light: var(--primary);
   --toastify-color-progress-dark: var(--primary);
 
-  /* BG */
+  /* Background para os botões da notificação */
   --button-bg: var(--gray-200);
   --button-bg-hover: var(--gray-100);
 }
@@ -106,7 +106,7 @@
   --toastify-text-color-light: #e6e9f0;
   --toastify-text-color-dark: #e6e9f0;
 
-  /* BG */
+  /* Background para os botões da notificação no modo claro */
   --button-bg: var(--gray-800);
   --button-bg-hover: var(--gray-900);
 }

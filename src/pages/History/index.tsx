@@ -9,7 +9,7 @@ import { formatDate } from "../../utils/formatDate";
 import { getTaskStatus } from "../../utils/getTaskStatus";
 import { getTaskType } from "../../utils/getTaskType";
 import { sortTasks, type SortTaskOptions } from "../../utils/sortTasks";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { showMessage } from "../../adapters/showMessage";
 import { TaskActionTypes } from "../../contexts/TaskContext/TaskActionModel";
 
@@ -25,6 +25,12 @@ export function History() {
     },
   );
   const hasTasks = state.tasks && state.tasks.length > 0;
+
+  useEffect(() => {
+    return () => {
+      showMessage.dismiss()
+    }
+  }, [])
 
   function handleSortTasks({ field }: Pick<SortTaskOptions, "field">) {
     const newDirection = sortTasksOptions.direction === "desc" ? "asc" : "desc";

@@ -18,10 +18,8 @@ export const showMessage = {
         content: content,
         onClosing
       },
-      ariaLabel: title,
       autoClose: false,
       closeButton: false,
-      draggable: false,
     }),
   dismiss: () => toast.dismiss(),
 };

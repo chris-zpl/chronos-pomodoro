@@ -18,6 +18,7 @@ export function WithActions({ closeToast, data }: CustomNotificationProps) {
             data.onClosing(true);
             closeToast();
           }}
+          aria-label="Confirmar"
         >
           Confirmar
         </button>
@@ -26,6 +27,7 @@ export function WithActions({ closeToast, data }: CustomNotificationProps) {
             data.onClosing(false);
             closeToast();
           }}
+          aria-label="Cancelar"
         >
           Cancelar
         </button>
