@@ -13,15 +13,12 @@ export function About() {
           <p>
             O <strong>Método Pomodoro</strong> é uma técnica de gerenciamento de
             tempo criada por <strong>Francesco Cirillo</strong> no final da década de 1980. O
-            nome "Pomodoro" vem da palavra italiana para <strong>tomate</strong>{" "}
-            🍅, pois o criador utilizava um timer de cozinha em formato de
+            nome "Pomodoro" vem da palavra italiana para <strong>tomate</strong> 🍅, pois o criador utilizava um timer de cozinha em formato de
             tomate para controlar seus períodos de estudo.
           </p>
 
           <p>
-            Essa técnica foi criada para ajudar pessoas a manterem o{" "}
-            <strong>foco</strong> 🎯, evitarem <strong>distrações</strong> 📱 e melhorarem a{" "}
-            <strong>produtividade</strong> 🚀. A ideia principal é dividir o
+            Essa técnica foi criada para ajudar pessoas a manterem o <strong>foco</strong> 🎯, evitarem <strong>distrações</strong> 📱 e melhorarem a <strong>produtividade</strong> 🚀. A ideia principal é dividir o
             tempo de trabalho em pequenos blocos, permitindo que o cérebro
             mantenha a concentração sem ficar sobrecarregado.
           </p>
@@ -29,8 +26,7 @@ export function About() {
           <h2>⏱️ Como funciona o Método Pomodoro</h2>
 
           <p>
-            O método funciona em ciclos de tempo chamados de{" "}
-            <strong>pomodoros</strong>. Cada pomodoro é um período de trabalho
+            O método funciona em ciclos de tempo chamados de <strong>pomodoros</strong>. Cada pomodoro é um período de trabalho
             focado seguido por um pequeno descanso.
           </p>
 
@@ -71,8 +67,7 @@ export function About() {
           </ul>
 
           <p>
-            Hoje o Método Pomodoro é amplamente utilizado por{" "}
-            <strong>estudantes</strong> 🎓, <strong>programadores</strong> 👨‍💻 e profissionais de diversas áreas
+            Hoje o Método Pomodoro é amplamente utilizado por <strong>estudantes</strong> 🎓, <strong>programadores</strong> 👨‍💻 e profissionais de diversas áreas
             que precisam manter concentração e organizar melhor suas tarefas no
             dia a dia.
           </p>
